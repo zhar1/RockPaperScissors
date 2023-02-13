@@ -41,7 +41,7 @@ function game(){
     let computerCounter = 0;//number of wins for computer
     for (let i = 0; i < 5; i++){
         let playerSelection = prompt("Select your fighter.");
-        let computerSelection = getComputerChoice;
+        let computerSelection = getComputerChoice();
         let result = playRound(playerSelection, computerSelection);
         //check playRound return value, updates counters based on win, lose, tie
         console.log(result);
