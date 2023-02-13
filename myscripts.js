@@ -5,35 +5,62 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection){
-    const player = playerSelection;
-    const computer = computerSelection;
+    const player = playerSelection.toLowerCase();
+    const computer = computerSelection.toLowerCase();
     let result = '';
     switch (true) {
-        case (player.toLowerCase() === computer.toLowerCase()):
+        case (player === computer):
             result = 'Tie';
             break;
-        case ((player.toLowerCase() === 'rock') && (computer.toLowerCase() === 'scissors')):
+        case ((player === 'rock') && (computer === 'scissors')):
             result = 'You win! Rock beats scissors.';
             break;
-        case ((player.toLowerCase() === 'paper') && (computer.toLowerCase() === 'rock')):
+        case ((player === 'paper') && (computer === 'rock')):
             result = 'You win! Paper beats rock.';
             break;
-        case ((player.toLowerCase() === 'scissors') && (computer.toLowerCase() === 'paper')):
+        case ((player === 'scissors') && (computer === 'paper')):
             result = 'You win! Scissors beats paper.';
             break;
-        case ((computer.toLowerCase() === 'rock') && (player.toLowerCase() === 'scissors')):
+        case ((computer === 'rock') && (player === 'scissors')):
             result = 'You lose! Rock beats scissors.';
             break;
-        case ((computer.toLowerCase() === 'paper') && (player.toLowerCase() === 'rock')):
+        case ((computer === 'paper') && (player === 'rock')):
             result = 'You lose! Paper beats rock.';
             break;
-        case ((computer.toLowerCase() === 'scissors') && (player.toLowerCase() === 'paper')):
+        case ((computer === 'scissors') && (player === 'paper')):
             result = 'You lose! Scissors beats paper.';
             break;
     }
     return result;
 }
 
-const playerSelection = 'rock';
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+
+
+function game(){
+    let playerCounter = 0;//number of wins
+    let computerCounter = 0;//number of wins for computer
+    for (let i = 0; i < 5; i++){
+        let playerSelection = prompt("Select your fighter.");
+        let computerSelection = 'rock';
+        let result = playRound(playerSelection, computerSelection);
+        //check playRound return value, updates counters based on win, lose, tie
+        console.log(result);
+        if (result.includes('win')){
+            playerCounter++;
+        } else if (result.includes('lose')){
+            computerCounter++;
+        } else {
+            playerCounter++;
+            computerCounter++;
+        }
+    }
+    if (playerCounter === computerCounter){
+        console.log("You tied, play again. There must be a champion");
+    } else if (playerCounter >= 3){
+        console.log("Congratulations you have won the game");
+    } else {
+        console.log("You lost the game! Prepare for your execution.");
+    }
+}
+
+game();
