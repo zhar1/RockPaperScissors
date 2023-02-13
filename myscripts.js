@@ -54,6 +54,7 @@ function game(){
             computerCounter++;
         }
     }
+    //determine winner
     if (playerCounter === computerCounter){
         console.log("You tied, play again. There must be a champion");
     } else if (playerCounter >= 3){
