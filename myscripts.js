@@ -36,7 +36,7 @@ function playRound(playerSelection, computerSelection){
 
 
 
-function game(){
+/* function game(){
     let playerCounter = 0;//number of wins
     let computerCounter = 0;//number of wins for computer
     for (let i = 0; i < 5; i++){
@@ -62,6 +62,5 @@ function game(){
     } else {
         console.log("You lost the game! Prepare for your execution.");
     }
-}
+} */
 
-game();
