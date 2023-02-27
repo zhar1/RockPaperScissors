@@ -1,12 +1,21 @@
+const btn = document.querySelectorAll("button");
+const resultsDiv = document.querySelector(".results");
+let playerScore = 0;
+let computerScore = 0;
+let result = '';
+let winningString = 'Congratulations you have won the series';
+let losingString = 'You lost, play again?';
+
+//computer selects cchoice at random
 function getComputerChoice() {
     const choice = ['rock', 'paper', 'scissors'];
     const randomChoice = Math.floor(Math.random() * choice.length);
     return choice[randomChoice];
 }
 
-function playRound(playerSelection, computerSelection){
+function playRound(playerSelection){
     const player = playerSelection.toLowerCase();
-    const computer = computerSelection.toLowerCase();
+    const computer = getComputerChoice().toLocaleLowerCase();
     let result = '';
     switch (true) {
         case (player === computer):
@@ -34,33 +43,48 @@ function playRound(playerSelection, computerSelection){
     return result;
 }
 
-
-
-/* function game(){
-    let playerCounter = 0;//number of wins
-    let computerCounter = 0;//number of wins for computer
-    for (let i = 0; i < 5; i++){
-        let playerSelection = prompt("Select your fighter.");
-        let computerSelection = getComputerChoice();
-        let result = playRound(playerSelection, computerSelection);
-        //check playRound return value, updates counters based on win, lose, tie
-        console.log(result);
-        if (result.includes('win')){
-            playerCounter++;
-        } else if (result.includes('lose')){
-            computerCounter++;
-        } else {
-            playerCounter++;
-            computerCounter++;
-        }
+//if game has been won reset score and clear div.results content
+function resetGame(){
+    if(playerScore === 5 || computerScore === 5){
+        playerScore = 0;
+        computerScore = 0;
+        resultsDiv.textContent = '';
     }
-    //determine winner
-    if (playerCounter === computerCounter){
-        console.log("You tied, play again. There must be a champion");
-    } else if (playerCounter >= 3){
-        console.log("Congratulations you have won the game");
+}
+
+//returns empty string until winner has been decided
+function determineWinner(){
+   if (playerScore === 5){
+        return winningString;
+   } else if (computerScore === 5){
+        return losingString;
+   } else {
+        return '';
+   }
+}
+
+//returns true if player wins and false if computer wins
+function round(result){
+    if (result.includes('win')){
+        return true;
     } else {
-        console.log("You lost the game! Prepare for your execution.");
+        return false;
     }
-} */
+}
 
+//updates score and announces winner
+function game (e){
+    let choice = this.classList.value;
+    //only resets game once player or computer has won with 5 points
+    resetGame();
+    result = playRound(choice);
+    //check playRound return value, updates counters based on win, lose, tie
+    if (round(result)){
+        playerScore++;
+    } else {
+        computerScore++;
+    }
+    resultsDiv.textContent = playerScore + '-' + computerScore + ' ' + determineWinner();
+}
+
+btn.forEach(btn => btn.addEventListener('click', game));
