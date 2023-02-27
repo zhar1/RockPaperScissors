@@ -1,5 +1,7 @@
 const btn = document.querySelectorAll("button");
 const resultsDiv = document.querySelector(".results");
+//loop thorugh nodeList and add event listner to each button to call game function
+btn.forEach(btn => btn.addEventListener('click', game));
 let playerScore = 0;
 let computerScore = 0;
 let result = '';
@@ -86,5 +88,3 @@ function game (e){
     }
     resultsDiv.textContent = playerScore + '-' + computerScore + ' ' + determineWinner();
 }
-
-btn.forEach(btn => btn.addEventListener('click', game));
